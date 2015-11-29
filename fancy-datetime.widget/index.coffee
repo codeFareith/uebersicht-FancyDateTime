@@ -78,7 +78,7 @@ locale:
       'Dezember'
     ]
 
-refreshFrequency: 1000
+refreshFrequency: 3000
 
 style: """
   top: 45%
@@ -174,24 +174,16 @@ getDate: () ->
   date = new Date()
   hour = date.getHours()
 
-  suffix = if (hour >= 12) then 'pm' else 'am' if (@settings.militaryTime is false)
+  suffix = (if (hour >= 12) then 'pm' else 'am') if (@settings.militaryTime is false)
   hour = (hour % 12 || 12) if (@settings.militaryTime)
-
-  hours = @zeroFill(hour);
-  minutes = @zeroFill(date.getMinutes())
-  seconds = @zeroFill(date.getSeconds())
-  weekday = @locale[@settings.lang].weekdays[date.getDay()]
-  day = date.getDate()
-  month = @locale[@settings.lang].months[date.getMonth()]
-  year = date.getFullYear()
 
   return {
     suffix: suffix
-    hours: hours
-    minutes: minutes
-    seconds: seconds
-    weekday: weekday
-    day: day
-    month: month
-    year: year
+    hours: @zeroFill(hour)
+    minutes: @zeroFill(date.getMinutes())
+    seconds: @zeroFill(date.getSeconds())
+    weekday: @locale[@settings.lang].weekdays[date.getDay()]
+    day: date.getDate()
+    month: @locale[@settings.lang].months[date.getMonth()]
+    year: date.getFullYear()
   }
