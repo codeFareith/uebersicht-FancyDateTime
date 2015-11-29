@@ -1,5 +1,5 @@
 ###
-/*------------------------------------------------------------*\
+----------------------------------------------------------------
 
     Fancy DateTime - v1.0.0
 
@@ -10,7 +10,7 @@
     robinvonberg@gmx.de
     http://github.com/codefareith
 
-\*------------------------------------------------------------*/
+----------------------------------------------------------------
 ###
 
 command: ""
@@ -18,6 +18,7 @@ command: ""
 # Widget Settings
 settings:
     lang: 'de'
+    militaryTime: true
     colors:
       default: 'rgba(0, 0, 0, .75)'
       accent: 'rgba(255, 255, 255, .75)'
@@ -132,9 +133,10 @@ style: """
 
 render: () -> """
   <div class='container'>
-    <div class='cell txt-large'>
-      <span class='hours txt-default left'></span>
-      <span class='minutes txt-accent left'></span>
+    <div class='cell'>
+      <span class='hours txt-default txt-large left'></span>
+      <span class='minutes txt-accent txt-large left'></span>
+      <span class='suffix txt-default txt-small'></span>
     </div>
     <div class='cell'>
       <span class='divider'></span>
@@ -158,6 +160,7 @@ update: (output, domEl) ->
 
   $(domEl).find('.hours').text(date.hours)
   $(domEl).find('.minutes').text(date.minutes)
+  $(domEl).find('.suffix').text(date.suffix)
   $(domEl).find('.weekday').text(date.weekday)
   $(domEl).find('.day').text(date.day)
   $(domEl).find('.month').text(date.month)
@@ -169,7 +172,12 @@ zeroFill: (value) ->
 
 getDate: () ->
   date = new Date()
-  hours = @zeroFill(date.getHours())
+  hour = date.getHours()
+
+  suffix = if (hour >= 12) then 'pm' else 'am' if (@settings.militaryTime is false)
+  hour = (hour % 12 || 12) if (@settings.militaryTime)
+
+  hours = @zeroFill(hour);
   minutes = @zeroFill(date.getMinutes())
   seconds = @zeroFill(date.getSeconds())
   weekday = @locale[@settings.lang].weekdays[date.getDay()]
@@ -178,6 +186,7 @@ getDate: () ->
   year = date.getFullYear()
 
   return {
+    suffix: suffix
     hours: hours
     minutes: minutes
     seconds: seconds
