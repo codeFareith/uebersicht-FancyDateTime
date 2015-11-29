@@ -8,7 +8,7 @@
 
     Robin 'codeFareith' von den Bergen
     robinvonberg@gmx.de
-    http://github.com/codefareith
+    https://github.com/codefareith
 
 ----------------------------------------------------------------
 ###
@@ -175,7 +175,7 @@ getDate: () ->
   hour = date.getHours()
 
   suffix = (if (hour >= 12) then 'pm' else 'am') if (@settings.militaryTime is false)
-  hour = (hour % 12 || 12) if (@settings.militaryTime)
+  hour = (hour % 12 || 12) if (@settings.militaryTime is false)
 
   return {
     suffix: suffix
