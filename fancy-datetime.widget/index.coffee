@@ -13,10 +13,8 @@
 ----------------------------------------------------------------
 ###
 
-command: ""
-
 # Widget Settings
-settings:
+settings =
     lang: 'de'
     militaryTime: true
     colors:
@@ -28,7 +26,7 @@ settings:
       text: '0 0 0.625em rgba(0, 0, 0, .25)'
 
 # Locale Strings
-locale:
+locale =
   en:
     weekdays: [
       'Sunday'
@@ -78,7 +76,12 @@ locale:
       'Dezember'
     ]
 
-refreshFrequency: 3000
+command: ""
+
+settings: settings
+locale: locale
+
+refreshFrequency: 1000
 
 style: """
   top: 45%
@@ -94,9 +97,9 @@ style: """
     height: 100%
     padding: 1em 2em
     border-radius: 1em
-    background: #{settings.colors.background}
-    box-shadow: #{settings.shadows.box}
-    text-shadow: #{settings.shadows.text}
+    background: #{@settings.colors.background}
+    box-shadow: #{@settings.shadows.box}
+    text-shadow: #{@settings.shadows.text}
     overflow: hidden
     -webkit-backdrop-filter: blur(10px)
 
@@ -109,10 +112,10 @@ style: """
     float: left
 
   .txt-default
-    color: #{settings.colors.default}
+    color: #{@settings.colors.default}
 
   .txt-accent
-    color: #{settings.colors.accent}
+    color: #{@settings.colors.accent}
 
   .txt-small
     font-size: 2em
@@ -127,8 +130,8 @@ style: """
     width: 1em
     height: 100%
     margin: 0 1em
-    background: #{settings.colors.accent}
-    box-shadow: #{settings.shadows.text}
+    background: #{@settings.colors.accent}
+    box-shadow: #{@settings.shadows.text}
 """
 
 render: () -> """
@@ -175,15 +178,23 @@ getDate: () ->
   hour = date.getHours()
 
   suffix = (if (hour >= 12) then 'pm' else 'am') if (@settings.militaryTime is false)
-  hour = (hour % 12 || 12) if (@settings.militaryTime is false)
+  hour = (hour % 12 || 12) if (@settings.militaryTime)
+
+  hours = @zeroFill(hour);
+  minutes = @zeroFill(date.getMinutes())
+  seconds = @zeroFill(date.getSeconds())
+  weekday = @locale[@settings.lang].weekdays[date.getDay()]
+  day = @zeroFill(date.getDate())
+  month = @locale[@settings.lang].months[date.getMonth()]
+  year = date.getFullYear()
 
   return {
     suffix: suffix
-    hours: @zeroFill(hour)
-    minutes: @zeroFill(date.getMinutes())
-    seconds: @zeroFill(date.getSeconds())
-    weekday: @locale[@settings.lang].weekdays[date.getDay()]
-    day: date.getDate()
-    month: @locale[@settings.lang].months[date.getMonth()]
-    year: date.getFullYear()
+    hours: hours
+    minutes: minutes
+    seconds: seconds
+    weekday: weekday
+    day: day
+    month: month
+    year: year
   }
