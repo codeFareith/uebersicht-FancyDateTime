@@ -93,17 +93,19 @@ style: """
   transform: translate(-50%, -50%)
 
   .container
+    position: relative
     display: table
     height: 100%
-    padding: 1em 2em
-    border-radius: 1em
-    background: #{@settings.colors.background}
-    box-shadow: #{@settings.shadows.box}
-    text-shadow: #{@settings.shadows.text}
+    padding: 1rem 2rem
+    border-radius: 1rem
+    background: #{ @settings.colors.background }
+    box-shadow: #{ @settings.shadows.box }
+    text-shadow: #{ @settings.shadows.text }
     overflow: hidden
     -webkit-backdrop-filter: blur(10px)
 
   .cell
+    position: relative
     display: table-cell
     vertical-align: middle
     overflow: hidden
@@ -112,26 +114,26 @@ style: """
     float: left
 
   .txt-default
-    color: #{@settings.colors.default}
+    color: #{ @settings.colors.default }
 
   .txt-accent
-    color: #{@settings.colors.accent}
+    color: #{ @settings.colors.accent }
 
   .txt-small
-    font-size: 2em
+    font-size: 2rem
     font-weight: 500
 
   .txt-large
-    font-size: 7em
+    font-size: 7rem
     font-weight: 700
 
   .divider
     display: block
-    width: 1em
+    width: 1rem
     height: 100%
-    margin: 0 1em
-    background: #{@settings.colors.accent}
-    box-shadow: #{@settings.shadows.text}
+    margin: 0 1rem
+    background: #{ @settings.colors.accent }
+    box-shadow: #{ @settings.shadows.text }
 """
 
 render: () -> """
@@ -156,7 +158,7 @@ render: () -> """
   </div>
 """
 
-afterRender: () ->
+afterRender: (domEl) ->
 
 update: (output, domEl) ->
   date = @getDate()
