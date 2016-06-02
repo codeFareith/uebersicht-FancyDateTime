@@ -98,9 +98,9 @@ style: """
     height: 100%
     padding: 1rem 2rem
     border-radius: 1rem
-    background: #{ @settings.colors.background }
-    box-shadow: #{ @settings.shadows.box }
-    text-shadow: #{ @settings.shadows.text }
+    background: #{ settings.colors.background }
+    box-shadow: #{ settings.shadows.box }
+    text-shadow: #{ settings.shadows.text }
     overflow: hidden
     -webkit-backdrop-filter: blur(10px)
 
@@ -114,10 +114,10 @@ style: """
     float: left
 
   .txt-default
-    color: #{ @settings.colors.default }
+    color: #{ settings.colors.default }
 
   .txt-accent
-    color: #{ @settings.colors.accent }
+    color: #{ settings.colors.accent }
 
   .txt-small
     font-size: 2rem
@@ -132,8 +132,8 @@ style: """
     width: 1rem
     height: 100%
     margin: 0 1rem
-    background: #{ @settings.colors.accent }
-    box-shadow: #{ @settings.shadows.text }
+    background: #{ settings.colors.accent }
+    box-shadow: #{ settings.shadows.text }
 """
 
 render: () -> """
